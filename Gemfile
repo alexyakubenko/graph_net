@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'uglifier', '>= 1.3.0'
 # gem 'therubyracer',  platforms: :ruby
 
-gem 'sorcery'
+gem 'sorcery'#, path: '~/RubymineProjects/startdatelabs/sorcery'
 gem 'simple_form'
 
 gem 'neo4j', '~> 3.0.4'

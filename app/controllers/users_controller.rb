@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_login
 
   def new
     @user = User.new
@@ -7,7 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to :login, notice: 'User was successfully created. Please log in.'
+      redirect_to :root, success: 'User was successfully created. Please log in.'
     else
       render action: :new
     end

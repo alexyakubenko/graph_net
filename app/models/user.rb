@@ -1,5 +1,6 @@
 class User
   include Neo4j::ActiveNode
+  extend Sorcery::Model
 
   authenticates_with_sorcery!
 
@@ -12,4 +13,9 @@ class User
   validates :password, length: { minimum: 3 }
   validates :password, confirmation: true
   validates :password_confirmation, presence: true
+  validates :email, presence: true
+
+  def self.find_by_credentials(credentials)
+    find_by(email: credentials.first)
+  end
 end
