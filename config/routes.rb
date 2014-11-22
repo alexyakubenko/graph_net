@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :user_sessions, only: [:create, :destroy]
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show, :edit, :update]
   resources :home, only: [:index]
 
   get 'login' => 'user_sessions#new', as: :login
