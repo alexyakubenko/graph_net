@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   private
 
   def not_authenticated
-    redirect_to new_user_path, warning: 'Please login first'
+    redirect_to new_user_path, warning: 'Для просмотра данной страницы вам необходимо войти в систему.'
   end
 end

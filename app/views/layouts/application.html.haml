@@ -16,14 +16,14 @@
                 = current_user.email
                 %b.caret
               %ul.dropdown-menu
-                %li= link_to 'Log Out', :logout, method: :post
+                %li= link_to 'Выйти', :logout, method: :post
         - else
           = form_tag :user_sessions, class: ['navbar-form', 'navbar-left'] do
             .form-group
               = email_field_tag :email, '', class: 'form-control', placeholder: 'Email'
             .form-group
-              = password_field_tag :password, '', class: 'form-control', placeholder: 'Password'
-            %button.btn.btn-default{ type: :submit } Log In
+              = password_field_tag :password, '', class: 'form-control', placeholder: 'Пароль'
+            %button.btn.btn-default{ type: :submit } Войти
 
     .container
       - flash.each do |name, msg|

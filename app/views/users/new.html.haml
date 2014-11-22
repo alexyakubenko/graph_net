@@ -1,7 +1,7 @@
 .row
-  .col-sm-2
+  .col-sm-1
   .col-sm-10
-    %h2 Register
+    %h2 Регистрация
     = form_for @user, html: { class: 'form-horizontal' } do |f|
       = render 'shared/form_errors', :object => f.object
 
@@ -12,18 +12,19 @@
         .col-sm-4.control-label
           = f.object.errors[:email].first
       .form-group{ class: "#{ 'has-error' if f.object.errors[:password].present? }" }
-        = f.label :password, class: ['col-sm-3', 'control-label']
+        = f.label :password, 'Пароль', class: ['col-sm-3', 'control-label']
         .col-sm-5
           = f.password_field :password, class: 'form-control'
         .col-sm-4.control-label
           = f.object.errors[:password].first
       .form-group{ class: "#{ 'has-error' if f.object.errors[:password_confirmation].present? }" }
-        = f.label :password_confirmation, class: ['col-sm-3', 'control-label']
+        = f.label :password_confirmation, 'Подтверждение пароля', class: ['col-sm-3', 'control-label']
         .col-sm-5
           = f.password_field :password_confirmation, class: 'form-control'
         .col-sm-4.control-label
           = f.object.errors[:password_confirmation].first
       .form-group
-        .col-sm-offset-2.col-sm-8
-          %button.btn.btn-default{ type: :submit } SignUp
+        .col-sm-offset-3.col-sm-7
+          %button.btn.btn-default{ type: :submit } Зарегистрироваться
 
+  .col-sm-1
