@@ -1,0 +1,2 @@
+class Interest < PropertyOfUserRelation
+end

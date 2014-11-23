@@ -1,0 +1,2 @@
+class DateOfBirth < PropertyOfUserRelation
+end

@@ -10,7 +10,7 @@ class Property
           title: 'Интересы',
           multiple: true
       },
-      city_of_birth: {
+      home_city: {
           title: 'Родной город'
       }
   }

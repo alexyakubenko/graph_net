@@ -21,6 +21,12 @@ module GraphNet
       g.orm             :neo4j
     end
 
+    config.autoload_paths += [
+        "#{ Rails.root }/app/nodes",
+        "#{ Rails.root }/app/relations"
+    ]
+
+
     # Configure where the embedded neo4j database should exist
     # Notice embedded db is only available for JRuby
     # config.neo4j.session_type = :embedded_db  # default #server_db

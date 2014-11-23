@@ -1,0 +1,2 @@
+class HomeCity < PropertyOfUserRelation
+end
