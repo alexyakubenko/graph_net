@@ -3,8 +3,8 @@ $ ->
     $.post(Routes.properties_path(
         format: 'json'
       ),
-        title: $('#property-type').val(),
-        type: $('#property-title').val()
+        value: $('#property-value').val(),
+        type: $('#property-type').val()
       , (response) =>
         console.log response
     )
