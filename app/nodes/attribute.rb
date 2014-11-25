@@ -9,7 +9,7 @@ class Attribute
           weight: 1.2
       },
       interest: {
-          title: 'Интересуется',
+          title: 'Интерес',
           multiple: true,
           weight: 3
       },

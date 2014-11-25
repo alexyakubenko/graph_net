@@ -1,4 +1,10 @@
-%button.btn.btn-primary.btn-lg{ type: :button, data: { toggle: :modal, target: '#add-property' } } Добавить характеристику
+%h1 Профиль пользователя
+
+%table.table.table-hover#attributes-list
+  %tbody
+    = render partial: 'attribute', collection: current_user.rels(dir: :outgoing)
+
+%button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-property' } } Добавить характеристику
 
 .modal.fade#add-property{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-property-label', 'aria-hidden' => true }
   .modal-dialog
@@ -16,5 +22,3 @@
       .modal-footer
         %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
         %button.btn.btn-primary#add-property{ type: :button } Добавить
-
-= render partial: 'attribute', collection: current_user.rels(dir: :outgoing)

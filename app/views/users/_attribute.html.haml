@@ -1,2 +1,4 @@
-= Attribute::RELATIONS[attribute.rel_type][:title]
-= attribute.end_node.value
+%tr{ class: "attribute-#{ attribute.id }" }
+  %td= Attribute::RELATIONS[attribute.rel_type][:title]
+  %td= attribute.end_node.value
+  %td= link_to 'Remove', js_nothing, data: { id: attribute.id }, class: [:btn, :'btn-danger', :'btn-xs', :'remove-attr']
