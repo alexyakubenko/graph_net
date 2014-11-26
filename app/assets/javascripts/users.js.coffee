@@ -1,18 +1,18 @@
 $ ->
   updateUndefinedOptionTypes = (response) ->
-    $('select#property-type').html(response.undefined_attribute_types_html)
+    $('select#attribute-type').html(response.undefined_attribute_types_html)
 
 
-  $('button#add-property').click =>
+  $('button#add-attribute').click =>
     $.post(Routes.attributes_path(
         format: 'json'
       ),
-        value: $('#property-value').val(),
-        type: $('#property-type').val()
+        value: $('#attribute-value').val(),
+        type: $('#attribute-type').val()
       , (response) =>
         if response.success
           $('#attributes-list tbody').append response.html
-          $('.modal#add-property').modal 'hide'
+          $('.modal#add-attribute').modal 'hide'
           updateUndefinedOptionTypes(response)
     )
 

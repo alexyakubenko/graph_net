@@ -4,21 +4,21 @@
   %tbody
     = render partial: 'attribute', collection: current_user.rels(dir: :outgoing)
 
-%button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-property' } } Добавить характеристику
+%button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } } Добавить характеристику
 
-.modal.fade#add-property{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-property-label', 'aria-hidden' => true }
+.modal.fade#add-attribute{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-attribute-label', 'aria-hidden' => true }
   .modal-dialog
     .modal-content
       .modal-header
         %button.close{ type: :button, data: { dismiss: :modal } }
           %span{ 'aria-hidden' => true } &times;
           %span.sr-only Close
-        %h4.modal-title#add-property-label Добавить характеристику
+        %h4.modal-title#add-attribute-label Добавить характеристику
       .modal-body
         .form-group
-          = select_tag :type, undefined_attribute_types_html, class: 'form-control', id: 'property-type'
+          = select_tag :type, undefined_attribute_types_html, class: 'form-control', id: 'attribute-type'
         .form-group
-          = text_field_tag :value, '', class: 'form-control', id: 'property-value'
+          = text_field_tag :value, '', class: 'form-control', id: 'attribute-value'
       .modal-footer
         %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
-        %button.btn.btn-primary#add-property{ type: :button } Добавить
+        %button.btn.btn-primary#add-attribute{ type: :button } Добавить
