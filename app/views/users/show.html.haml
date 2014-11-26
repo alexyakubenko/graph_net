@@ -16,7 +16,7 @@
         %h4.modal-title#add-property-label Добавить характеристику
       .modal-body
         .form-group
-          = select_tag :type, options_for_select(Attribute::RELATIONS.map { |k, v| [v[:title], k] }), class: 'form-control', id: 'property-type'
+          = select_tag :type, undefined_attribute_types_html, class: 'form-control', id: 'property-type'
         .form-group
           = text_field_tag :value, '', class: 'form-control', id: 'property-value'
       .modal-footer

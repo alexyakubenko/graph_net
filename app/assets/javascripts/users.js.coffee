@@ -1,4 +1,8 @@
 $ ->
+  updateUndefinedOptionTypes = (response) ->
+    $('select#property-type').html(response.undefined_attribute_types_html)
+
+
   $('button#add-property').click =>
     $.post(Routes.attributes_path(
         format: 'json'
@@ -9,6 +13,7 @@ $ ->
         if response.success
           $('#attributes-list tbody').append response.html
           $('.modal#add-property').modal 'hide'
+          updateUndefinedOptionTypes(response)
     )
 
   $(document).off('click', 'a.remove-attr').on 'click', 'a.remove-attr', ->
@@ -21,6 +26,7 @@ $ ->
       success: (response) =>
         if response.success
           $("tr.attribute-#{ id }").remove()
+          updateUndefinedOptionTypes(response)
         else
           alert 'Извините. Что-то пошло не так...'
     )
