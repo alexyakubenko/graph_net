@@ -2,23 +2,24 @@
 
 %table.table.table-hover#attributes-list
   %tbody
-    = render partial: 'attribute', collection: current_user.rels(dir: :outgoing)
+    = render partial: 'attribute', collection: @user.rels(dir: :outgoing)
 
-%button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } } Добавить характеристику
+- if @user == current_user
+  %button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } } Добавить характеристику
 
-.modal.fade#add-attribute{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-attribute-label', 'aria-hidden' => true }
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %button.close{ type: :button, data: { dismiss: :modal } }
-          %span{ 'aria-hidden' => true } &times;
-          %span.sr-only Close
-        %h4.modal-title#add-attribute-label Добавить характеристику
-      .modal-body
-        .form-group
-          = select_tag :type, undefined_attribute_types_html, class: 'form-control', id: 'attribute-type'
-        .form-group
-          = text_field_tag :value, '', class: 'form-control', id: 'attribute-value'
-      .modal-footer
-        %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
-        %button.btn.btn-primary#add-attribute{ type: :button } Добавить
+  .modal.fade#add-attribute{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-attribute-label', 'aria-hidden' => true }
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ type: :button, data: { dismiss: :modal } }
+            %span{ 'aria-hidden' => true } &times;
+            %span.sr-only Close
+          %h4.modal-title#add-attribute-label Добавить характеристику
+        .modal-body
+          .form-group
+            = select_tag :type, undefined_attribute_types_html, class: 'form-control', id: 'attribute-type'
+          .form-group
+            = text_field_tag :value, '', class: 'form-control', id: 'attribute-value'
+        .modal-footer
+          %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
+          %button.btn.btn-primary#add-attribute{ type: :button } Добавить
