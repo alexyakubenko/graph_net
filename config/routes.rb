@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
   resource :attributes, only: [:create, :destroy]
 
+  get 'recommendations', to: 'recommendations#index', as: :recommendations
   get 'login' => 'user_sessions#new', as: :login
   post 'logout' => 'user_sessions#destroy', as: :logout
 
