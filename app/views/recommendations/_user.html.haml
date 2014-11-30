@@ -1,3 +1,4 @@
-= link_to object.email, object
-= link_to 'Добавить в друзья', js_nothing
-= link_to 'Написать сообщение', js_nothing
+.row.recommendation
+  .col-md-8= link_to object.email, object
+  .col-md-2= link_to 'Написать сообщение', js_nothing, class: [:btn, 'btn-info']
+  .col-md-2= link_to 'Добавить в друзья', js_nothing, class: [:btn, 'btn-primary']
