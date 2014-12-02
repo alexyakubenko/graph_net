@@ -14,7 +14,8 @@
             %li{ class: "#{ 'active' if request.path == recommendations_path }"}
               = link_to 'Рекоммендации', :recommendations
           %ul.nav.navbar-nav
-            %li= link_to 'Друзья', js_nothing
+            %li{ class: "#{ 'active' if request.path == friends_users_path }"}
+              = link_to 'Друзья', :friends_users
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
               = link_to "#", class: 'dropdown-toggle', data: { toggle: :dropdown } do
