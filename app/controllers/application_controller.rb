@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
+  after_filter :prepare_unobtrusive_flash
+
   private
 
   def not_authenticated

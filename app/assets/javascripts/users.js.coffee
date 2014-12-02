@@ -16,6 +16,11 @@ $ ->
           updateUndefinedOptionTypes(response)
     )
 
+  $('a.add-friend').click ->
+    $.post(Routes.add_friend_user_path($(this).closest('.recommendation').data('id')), {}, (response) =>
+      $(@).attr('disabled', 'disabled')
+    )
+
   $(document).off('click', 'a.remove-attr').on 'click', 'a.remove-attr', ->
     id = $(@).data('id')
     $.ajax(

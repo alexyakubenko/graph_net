@@ -20,6 +20,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def add_friend
+    user = User.find(params[:id])
+    flash[:success] = 'Запрос на добавление в друзья отправлен. Спасибо.'
+    render json: { email: user.email }
+  end
+
   private
 
   def user_params

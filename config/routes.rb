@@ -2,9 +2,11 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :user_sessions, only: [:create, :destroy]
-  resources :users, only: [:new, :create, :show]
   resources :home, only: [:index]
   resource :attributes, only: [:create, :destroy]
+  resources :users, only: [:new, :create, :show] do
+    post :add_friend, on: :member
+  end
 
   get 'recommendations', to: 'recommendations#index', as: :recommendations
   get 'login' => 'user_sessions#new', as: :login
