@@ -22,6 +22,9 @@ class UsersController < ApplicationController
 
   def add_friend
     user = User.find(params[:id])
+
+    relation = current_user.create_rel('friend_request', user, weight: 1.0)
+
     flash[:success] = 'Запрос на добавление в друзья отправлен. Спасибо.'
     render json: { email: user.email }
   end
