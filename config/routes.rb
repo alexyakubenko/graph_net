@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resource :attributes, only: [:create, :destroy]
   resources :users, only: [:new, :create, :show] do
     post :add_friend, on: :member
+    post :confirm_friend, on: :member
+    post :reject_friend, on: :member
   end
 
   get 'recommendations', to: 'recommendations#index', as: :recommendations

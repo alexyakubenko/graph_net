@@ -29,6 +29,14 @@ class UsersController < ApplicationController
     render json: { email: user.email }
   end
 
+  def confirm_friend
+
+  end
+
+  def reject_friend
+
+  end
+
   def friends
 
   end

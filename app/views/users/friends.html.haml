@@ -4,5 +4,5 @@
     - current_user.friend_requests.map(&:start_node).each do |potential_friend|
       .col-md-3.friend-box{ data: { id: potential_friend.id }}
         .email= link_to potential_friend.name || potential_friend.email, potential_friend, title: potential_friend.email
-        .button= link_to 'Добавить в друзья', js_nothing, class: [:btn, 'btn-primary', 'add-friend']
-        .button= link_to 'Не добавлять в друзья', js_nothing, class: [:btn, 'btn-danger', 'decline-friend']
+        .button= link_to 'Добавить в друзья', confirm_friend_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
+        .button= link_to 'Не добавлять в друзья', reject_friend_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
