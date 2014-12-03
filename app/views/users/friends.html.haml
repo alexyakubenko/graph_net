@@ -1,8 +1,8 @@
 - if current_user.friend_requests.any?
   %h1 Хотят дружить
   .row
-    - current_user.friend_requests.map(&:end_node).each do |potential_friend|
+    - current_user.friend_requests.map(&:start_node).each do |potential_friend|
       .col-md-3.friend-box{ data: { id: potential_friend.id }}
-        .email= link_to potential_friend.email, potential_friend
+        .email= link_to potential_friend.name || potential_friend.email, potential_friend, title: potential_friend.email
         .button= link_to 'Добавить в друзья', js_nothing, class: [:btn, 'btn-primary', 'add-friend']
         .button= link_to 'Не добавлять в друзья', js_nothing, class: [:btn, 'btn-danger', 'decline-friend']

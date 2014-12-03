@@ -24,10 +24,6 @@ class User
   end
 
   def name
-    @name ||= rels(dir: :outgoing, type: :name).first.try(:value)
-  end
-
-  def pretty_name
-    name ? "#{ name }(#{ self.email })" : self.eamil
+    @name ||= rels(type: :name).first.try(:end_node).try(:value)
   end
 end
