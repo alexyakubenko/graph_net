@@ -2,7 +2,7 @@
 
 %table.table.table-hover#attributes-list
   %tbody
-    = render partial: 'attribute', collection: @user.rels(dir: :outgoing, types: Attribute::RELATIONS.keys)
+    = render partial: 'attribute', collection: Attribute::RELATIONS.keys.map { |rel_type| @user.rels(type: rel_type) }.flatten
 
 - if @user == current_user
   %button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } } Добавить характеристику

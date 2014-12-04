@@ -2,7 +2,16 @@
   %h1 Хотят дружить
   .row
     - current_user.friend_requests.map(&:start_node).each do |potential_friend|
-      .col-md-3.friend-box{ data: { id: potential_friend.id }}
-        .email= link_to potential_friend.name || potential_friend.email, potential_friend, title: potential_friend.email
+      .col-md-3.friend-box
+        .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
         .button= link_to 'Добавить в друзья', confirm_friend_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
         .button= link_to 'Не добавлять в друзья', reject_friend_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+
+- if current_user.friends.any?
+  %h1 Друзья
+  .row
+    - current_user.friends.each do |friend|
+      .col-md-3.friend-box{ data: { id: friend.id }}
+        .email= link_to friend.any_name, friend, title: friend.email
+        .button= link_to 'Написать сообщение', js_nothing, class: [:btn, 'btn-primary', 'send-msg']
+        .button= link_to 'Удалить из друзей', reject_friend_user_path(friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post

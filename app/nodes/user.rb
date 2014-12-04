@@ -23,7 +23,15 @@ class User
     @friend_requests ||= self.rels(dir: :incoming, type: :friend_request)
   end
 
+  def friends
+    @friends ||= self.rels(type: :friend).map { |r| r.end_node == self ? r.start_node : r.end_node }
+  end
+
   def name
     @name ||= rels(type: :name).first.try(:end_node).try(:value)
+  end
+
+  def any_name
+    name || self.email
   end
 end
