@@ -8,10 +8,13 @@ Rails.application.routes.draw do
     post :add_friend, on: :member
     post :confirm_friend, on: :member
     post :reject_friend, on: :member
+    post :send_message, on: :member
+    get :messages, on: :member
   end
 
   get 'recommendations', to: 'recommendations#index', as: :recommendations
   get 'friends', to: 'users#friends', as: :friends
+  get 'messages', to: 'users#messages', as: :messages
   get 'login' => 'user_sessions#new', as: :login
   post 'logout' => 'user_sessions#destroy', as: :logout
 

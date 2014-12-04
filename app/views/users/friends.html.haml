@@ -13,5 +13,5 @@
     - current_user.friends.each do |friend|
       .col-md-3.friend-box{ data: { id: friend.id }}
         .email= link_to friend.any_name, friend, title: friend.email
-        .button= link_to 'Написать сообщение', js_nothing, class: [:btn, 'btn-primary', 'send-msg']
+        .button= link_to 'Написать сообщение', messages_user_path(friend), class: [:btn, 'btn-primary', 'send-msg']
         .button= link_to 'Удалить из друзей', reject_friend_user_path(friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post

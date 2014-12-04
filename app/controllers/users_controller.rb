@@ -50,8 +50,28 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
-  def friends
+  def send_message
+    if params[:message].blank?
+      flash[:danger] = 'Сообщение не может быть пустым. Введите что-либо.'
+      redirect_to :back
+      return
+    end
 
+    user = User.find(params[:id])
+    current_user.create_rel(:message, user, weight: 0.25, body: params[:message], created_at: Time.now.to_i)
+    flash[:success] = "Сообщение пользователю #{ user.any_name } отправлено."
+    redirect_to :back
+  end
+
+  def friends
+  end
+
+  def messages
+    @user = User.find(params[:id])
+
+    @messages = @user ? current_user.rels(between: @user, type: :message) : current_user.rels(type: :message)
+
+    @messages.sort_by!{ |m| m.props[:created_at] }
   end
 
   private

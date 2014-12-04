@@ -13,9 +13,10 @@
           %ul.nav.navbar-nav
             %li{ class: "#{ 'active' if request.path == recommendations_path }"}
               = link_to 'Рекоммендации', :recommendations
-          %ul.nav.navbar-nav
             %li{ class: "#{ 'active' if request.path == friends_path }"}
               = link_to "Друзья#{ "(#{ current_user.friend_requests.count })" if current_user.friend_requests.any? }", :friends
+            %li{ class: "#{ 'active' if request.path =~ /messages/ }"}
+              = link_to "Сообщения#{ "(#{ 0 })" if true }", :messages
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
               = link_to "#", class: 'dropdown-toggle', data: { toggle: :dropdown } do

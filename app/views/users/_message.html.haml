@@ -1,0 +1,9 @@
+.row
+  - if message.end_node == current_user
+    .col-md-4= "#{ Time.new(message.props[:created_at].to_i) } назад"
+    .col-md-5= message.props[:body]
+    .col-md-3= link_to current_user.any_name, current_user
+  - else
+    .col-md-3= link_to message.end_node.any_name, message.end_node
+    .col-md-5= message.props[:body]
+    .col-md-4= "#{ Time.new(message.props[:created_at].to_i) } назад"
