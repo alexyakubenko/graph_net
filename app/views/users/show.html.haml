@@ -1,4 +1,4 @@
-%h1 Профиль пользователя
+%h1= @user == current_user ? 'Ваш профиль' : "Профиль пользователя #{ @user.any_name }"
 
 %table.table.table-hover#attributes-list
   %tbody
