@@ -5,11 +5,13 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
   resource :attributes, only: [:create, :destroy]
   resources :users, only: [:new, :create, :show] do
-    post :confirm_friend, on: :member
-    post :reject_friend, on: :member
-    post :send_message, on: :member
-    get :add_friend, on: :member
-    get :messages, on: :member
+    member do
+      post :confirm_friend
+      post :reject_friend
+      post :send_message
+      get :add_friend
+      get :messages
+    end
   end
 
   get 'recommendations', to: 'recommendations#index', as: :recommendations
