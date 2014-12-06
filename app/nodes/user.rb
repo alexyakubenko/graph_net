@@ -15,6 +15,8 @@ class User
   validates :password_confirmation, presence: true
   validates :email, presence: true
 
+  has_many :in, :posts, model_class: Post, relation_class: PostedBy
+
   def self.find_by_credentials(credentials)
     find_by(email: credentials.first) rescue nil
   end

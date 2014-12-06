@@ -1,0 +1,6 @@
+%tr
+  %td= link_to post.title, post
+
+  - if post.creator == current_user
+    %td
+      = link_to 'Редактировать', edit_post_path(post), class: [:btn, 'btn-warning']

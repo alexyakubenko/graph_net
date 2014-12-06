@@ -3,7 +3,7 @@
   .col-sm-10
     %h2 Регистрация
     = form_for @user, html: { class: 'form-horizontal' } do |f|
-      = render 'shared/form_errors', :object => f.object
+      = render 'shared/form_errors', object: f.object
 
       .form-group{ class: "#{ 'has-error' if f.object.errors[:email].present? }" }
         = f.label :email, class: ['col-sm-3', 'control-label']

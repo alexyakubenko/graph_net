@@ -17,6 +17,8 @@
               = link_to "Друзья#{ " (#{ current_user.friend_requests.count })" if current_user.friend_requests.any? }", :friends
             %li{ class: "#{ 'active' if request.path =~ /messages/ }"}
               = link_to "Сообщения#{ " (#{ current_user.unread_messages.count })" if current_user.unread_messages.any? }", :messages
+            %li{ class: "#{ 'active' if request.path == posts_path }"}
+              = link_to 'Ваши статьи', :posts
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
               = link_to "#", class: 'dropdown-toggle', data: { toggle: :dropdown } do

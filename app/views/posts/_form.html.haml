@@ -1,0 +1,16 @@
+.row
+  .col-sm-8.col-sm-offset-2.text-center
+    %h1= @post.persisted? ? 'Редактирование статьи' : 'Создание новой статьи'
+    = form_for @post, html: { class: 'form-horizontal' } do |f|
+      = render 'shared/form_errors', object: f.object
+
+      - errors = f.object.errors
+
+      .form-group{ class: "#{ 'has-error' if errors[:title].present? }" }
+        = f.text_field :title, class: 'form-control', placeholder: "#{ errors[:title].present? ? 'Название статьи не может быть пустым' : 'Название' }"
+
+      .form-group{ class: "#{ 'has-error' if errors[:body].present? }" }
+        = f.text_area :body, class: 'form-control', rows: 15, placeholder: "#{ errors[:body].present? ? 'Текст статьи не может быть пустым' : 'Текст' }"
+
+      .form-group
+        = f.submit "#{ f.object.persisted? ? 'Обновить' : 'Создать' }", class: ['btn', 'btn-primary']

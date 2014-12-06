@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :user_sessions, only: [:create, :destroy]
   resources :home, only: [:index]
 
+  resources :posts, except: :destroy
+
   resources :users, except: :destroy do
     member do
       get :add_friend
