@@ -1,8 +1,11 @@
-%tr
+%tr.post
   %td
-    = link_to post do
-      = post.title
-      = link_to "(#{ post.likes_count })", js_nothing, title: "Статья понравилась #{ post.likes_count } пользователям"
+    = link_to post.title, post
+  %td
+    %span.glyphicon.glyphicon-heart
+    %span= post.likes_count
   - if post.creator == current_user
     %td
-      = link_to 'Редактировать', edit_post_path(post), class: [:btn, 'btn-warning']
+      = link_to edit_post_path(post), class: [:btn, 'btn-warning'] do
+        %span.glyphicon.glyphicon-edit
+        Редактировать

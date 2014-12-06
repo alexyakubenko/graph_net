@@ -1,9 +1,19 @@
 - if current_user.requested_friendship_by?(user)
-  = link_to 'Подтвердить дружбу', apply_friendship_user_path(user), class: [:btn, 'btn-primary'], method: :post
-  = link_to 'Не добавлять в друзья', reject_friendship_user_path(user), class: [:btn, 'btn-danger'], method: :post
+  = link_to apply_friendship_user_path(user), class: [:btn, 'btn-primary'], method: :post do
+    %span.glyphicon.glyphicon-ok
+    Подтвердить дружбу
+  = link_to reject_friendship_user_path(user), class: [:btn, 'btn-danger'], method: :post do
+    %span.glyphicon.glyphicon-remove
+    Не добавлять в друзья
 - elsif current_user.friend?(user)
-  = link_to 'Удалить из друзей', reject_friendship_user_path(user), class: [:btn, 'btn-danger'], method: :post
+  = link_to reject_friendship_user_path(user), class: [:btn, 'btn-danger'], method: :post do
+    %span.glyphicon.glyphicon-minus
+    Удалить из друзей
 - elsif current_user.suggested_friendship_for?(user)
-  = link_to 'Отменить предложение дружбы', reject_friendship_user_path(user), class: [:btn, 'btn-danger'], method: :post
+  = link_to reject_friendship_user_path(user), class: [:btn, 'btn-danger'], method: :post do
+    %span.glyphicon.glyphicon-remove
+    Отменить предложение дружбы
 - else
-  = link_to 'Предложить дружбу', request_friendship_user_path(user), class: [:btn, 'btn-primary'], method: :post
+  = link_to request_friendship_user_path(user), class: [:btn, 'btn-primary'], method: :post do
+    %span.glyphicon.glyphicon-heart-empty
+    Предложить дружбу

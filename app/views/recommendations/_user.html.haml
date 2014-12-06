@@ -1,4 +1,11 @@
 .row.recommendation
-  .col-md-8= link_to object.email, object
-  .col-md-2= link_to 'Написать сообщение', messages_user_path(object), class: [:btn, 'btn-info']
-  .col-md-2= link_to 'Предложить дружбу', request_friendship_user_path(object), class: [:btn, 'btn-primary'], method: :post
+  .col-md-4.col-md-offset-2
+    = link_to object, title: object.email do
+      %span.glyphicon.glyphicon-user
+      = object.any_name
+  .col-md-2
+    = link_to messages_user_path(object), class: [:btn, 'btn-info'] do
+      %span.glyphicon.glyphicon-envelope
+      Написать сообщение
+  .col-md-2
+    = render 'users/friend_links', user: object

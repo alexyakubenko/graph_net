@@ -18,5 +18,7 @@
         %cite= "#{ time_ago_in_words(message.created_at) } назад"
         = link_to "#{ current_user.any_name } (Вы)", current_user
       - else
-        = link_to user.any_name, user_path(user.uuid)
+        = link_to user_path(user.uuid) do
+          %span.glyphicon.glyphicon-user
+          = user.any_name
         %cite= "#{ time_ago_in_words(message.created_at) } назад"

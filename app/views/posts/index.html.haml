@@ -1,5 +1,7 @@
 .text-right
-  = link_to 'Добавить статью', new_post_path, class: [:btn, 'btn-primary']
+  = link_to new_post_path, class: [:btn, 'btn-primary'] do
+    %span.glyphicon.glyphicon-file
+    Добавить статью
 
 - if @user.posts.any?
   %h1= current_user == @user ? 'Созданные вами статьи' : "Статьи, созданные пользователем #{ @user.any_name }"

@@ -1,4 +1,4 @@
-.row.recommendation
-  = link_to object do
-    = object.title
-    = link_to "(#{ object.likes_count })", js_nothing, title: "Статья понравилась #{ object.likes_count } пользователям"
+.row.recommendation.text-center
+  = link_to object.title, object
+  %span.glyphicon.glyphicon-heart
+  = object.likes_count

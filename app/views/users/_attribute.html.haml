@@ -4,4 +4,7 @@
   %td
     %strong= attribute.end_node.value
   - if @user == current_user
-    %td= link_to 'Remove', js_nothing, data: { id: attribute.id }, class: [:btn, :'btn-danger', :'btn-xs', :'remove-attr']
+    %td
+      = link_to js_nothing, data: { id: attribute.id }, class: [:btn, :'btn-danger', :'btn-xs', :'remove-attr'] do
+        %span.glyphicon.glyphicon-trash
+        Remove

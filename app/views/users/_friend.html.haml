@@ -1,3 +1,5 @@
-.col-md-3.friend-box
-  .email= link_to user.any_name, user, title: user.email
+.col-md-3.friend-box.text-center
+  .email
+    %span.glyphicon.glyphicon-user
+    = link_to user.any_name, user, title: user.email
   .buttons= render 'friend_links', user: user

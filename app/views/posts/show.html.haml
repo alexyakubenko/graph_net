@@ -3,10 +3,14 @@
     .alert.alert-success.text-center Вам понравилась данная статья
   - else
     .text-right
-      = link_to 'Мне нравится данная статья', like_post_path(@post), class: [:btn, 'btn-info'], method: :post
+      = link_to like_post_path(@post), class: [:btn, 'btn-info'], method: :post do
+        %span.glyphicon.glyphicon-thumbs-up
+        Мне нравится данная статья
 - else
   .text-right
-    = link_to 'Редактировать', edit_post_path(@post), class: [:btn, 'btn-warning']
+    = link_to edit_post_path(@post), class: [:btn, 'btn-warning'] do
+      %span.glyphicon.glyphicon-edit
+      Редактировать
 
 %h1.text-center= @post.title
 %blockquote{ style: 'white-space: pre-wrap;' }

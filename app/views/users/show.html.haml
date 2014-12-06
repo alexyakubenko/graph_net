@@ -8,7 +8,9 @@
 
 .text-center
   - if @user == current_user
-    %button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } } Добавить характеристику
+    %button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } }
+      %span.glyphicon.glyphicon-plus
+      Добавить характеристику
 
     .modal.fade#add-attribute{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-attribute-label', 'aria-hidden' => true }
       .modal-dialog
@@ -28,6 +30,12 @@
             %button.btn.btn-primary#add-attribute{ type: :button } Добавить
   - else
     = render 'friend_links', user: @user
-    = link_to 'Написать сообщение', messages_user_path(@user), class: [:btn, 'btn-info']
-    = link_to 'Друзья', friends_path(@user), class: [:btn, 'btn-success']
-    = link_to 'Статьи', posts_path(id: @user.uuid), class: [:btn, 'btn-warning']
+    = link_to messages_user_path(@user), class: [:btn, 'btn-info'] do
+      %span.glyphicon.glyphicon-envelope
+      Написать сообщение
+    = link_to friends_path(@user), class: [:btn, 'btn-success'] do
+      %span.glyphicon.glyphicon-heart
+      Друзья
+    = link_to posts_path(@user), class: [:btn, 'btn-warning'] do
+      %span.glyphicon.glyphicon-file
+      Статьи

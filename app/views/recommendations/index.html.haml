@@ -1,5 +1,3 @@
-%h1 Recommendations
-
 - @recommendations.each do |r|
   .container
     = render "recommendations/#{ r.first.class.name.underscore }", object: r.first
