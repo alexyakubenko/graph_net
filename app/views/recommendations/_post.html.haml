@@ -1,0 +1,4 @@
+.row.recommendation
+  = link_to object do
+    = object.title
+    = link_to "(#{ object.likes_count })", js_nothing, title: "Статья понравилась #{ object.likes_count } пользователям"
