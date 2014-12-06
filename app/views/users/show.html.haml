@@ -27,5 +27,15 @@
             %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
             %button.btn.btn-primary#add-attribute{ type: :button } Добавить
   - else
-    = link_to 'Статьи', posts_path(id: @user.uuid), class: [:btn, 'btn-info']
+    - if current_user.requested_friendship_by?(@user)
+      = link_to 'Добавить в друзья', apply_friendship_user_path(@user), class: [:btn, 'btn-primary'], method: :post
+    - elsif current_user.friend?(@user)
+      = link_to 'Удалить из друзей', reject_friendship_user_path(@user), class: [:btn, 'btn-danger'], method: :post
+    - elsif current_user.suggested_friendship_for?(@user)
+      = link_to 'Отменить заявку на добавление в друзья', reject_friendship_user_path(@user), class: [:btn, 'btn-danger'], method: :post
+    - else
+      = link_to 'Предложить дружбу', request_friendship_user_path(@user), class: [:btn, 'btn-primary'], method: :post
+
+    = link_to 'Написать сообщение', messages_user_path(@user), class: [:btn, 'btn-info']
     = link_to 'Друзья', friends_path(@user), class: [:btn, 'btn-success']
+    = link_to 'Статьи', posts_path(id: @user.uuid), class: [:btn, 'btn-warning']

@@ -56,7 +56,7 @@ class User
 
   def reject_friendship!(user)
     Neo4j::Session.query(
-        "MATCH (i:User)-[r]-(u:User) WHERE TYPE(r) in ['applied_friendship', 'requested_friendship'] AND u.id = {u_id} AND i.id = {i_id} RETURN r;",
+        "MATCH (i:User)-[r]-(u:User) WHERE TYPE(r) in ['applied_friendship', 'requested_friendship'] AND u.uuid = {u_id} AND i.uuid = {i_id} DELETE r;",
         u_id: user.uuid,
         i_id: self.uuid
     )
@@ -71,6 +71,18 @@ class User
     else
       false
     end
+  end
+
+  def requested_friendship_by?(user)
+    rels(dir: :incoming, between: user, type: :requested_friendship).any?
+  end
+
+  def friend?(user)
+    rels(type: :applied_friendship, between: user).any?
+  end
+
+  def suggested_friendship_for?(user)
+    rels(dir: :outgoing, between: user, type: :requested_friendship).any?
   end
 
   def send_message!(message_body, recipient)

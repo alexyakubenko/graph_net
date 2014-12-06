@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
     current_user.request_friendship!(user)
 
-    flash[:success] = 'Запрос на добавление в друзья отправлен. Спасибо.'
+    flash[:success] = 'Запрос на добавление в друзья отправлен.'
 
     redirect_to :back
   end
