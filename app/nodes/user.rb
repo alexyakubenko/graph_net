@@ -36,8 +36,16 @@ class User
 
   def unread_messages
     @unread_messages ||= Neo4j::Session.query(
-        "MATCH ()-[r:message]->(i) WHERE i.uuid = {i_id} AND r.unread = true RETURN r",
+        "MATCH ()-[r:sent_message_to]->(i) WHERE i.uuid = {i_id} AND r.unread = true RETURN r",
         i_id: self.uuid
+    )
+  end
+
+  def read_messages_by!(user)
+    Neo4j::Session.query(
+        "MATCH (u)-[r:sent_message_to]->(i) WHERE i.uuid = {i_id} AND u.uuid = {u_id} AND r.unread = true SET r.unread = false",
+        i_id: self.uuid,
+        u_id: user.uuid
     )
   end
 
@@ -62,5 +70,9 @@ class User
     else
       false
     end
+  end
+
+  def send_message!(message_body, recipient)
+    SentMessageTo.create(from_node: self, to_node: recipient, body: message_body)
   end
 end

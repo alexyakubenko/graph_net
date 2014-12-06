@@ -67,7 +67,9 @@ class UsersController < ApplicationController
     end
 
     user = User.find(params[:id])
-    current_user.create_rel(:message, user, weight: 0.25, body: params[:message], unread: true, created_at: Time.now.strftime('%c'))
+
+    current_user.send_message!(params[:message], user)
+
     flash[:success] = "Сообщение пользователю #{ user.any_name } отправлено."
     redirect_to :back
   end
@@ -78,11 +80,11 @@ class UsersController < ApplicationController
   def messages
     @user = User.find(params[:id])
 
-    @messages = @user ? current_user.rels(between: @user, type: :message) : current_user.rels(type: :message)
+    @messages = @user ? current_user.rels(between: @user, type: :sent_message_to) : current_user.rels(type: :sent_message_to)
 
-    mark_unread_messages! if @user
+    current_user.read_messages_by!(@user) if @user
 
-    @messages.sort_by!{ |m| m.props[:created_at] }
+    @messages.sort_by!(&:created_at)
   end
 
   def delete_attribute
@@ -114,13 +116,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
-  end
-
-  def mark_unread_messages!
-    Neo4j::Session.query(
-        "MATCH (u)-[r:message]->(i) WHERE i.uuid = {i_id} AND u.uuid = {u_id} AND r.unread = true SET r.unread = false",
-        i_id: current_user.uuid,
-        u_id: @user.uuid
-    )
   end
 end

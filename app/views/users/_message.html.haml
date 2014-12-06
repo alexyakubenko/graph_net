@@ -6,17 +6,17 @@
     %p
       - if @user.blank?
         = link_to messages_user_path(user.uuid) do
-          - if message.props[:unread]
-            %strong= message.props[:body]
+          - if message.unread
+            %strong= message.body
           - else
-            = message.props[:body]
+            = message.body
       - else
-        = message.props[:body]
+        = message.body
 
     %footer
       - if my_message
-        %cite= "#{ time_ago_in_words Time.parse(message.props[:created_at]) } назад"
+        %cite= "#{ time_ago_in_words(message.created_at) } назад"
         = link_to "#{ current_user.any_name } (Вы)", current_user
       - else
         = link_to user.any_name, user
-        %cite= "#{ time_ago_in_words Time.parse(message.props[:created_at]) } назад"
+        %cite= "#{ time_ago_in_words(message.created_at) } назад"
