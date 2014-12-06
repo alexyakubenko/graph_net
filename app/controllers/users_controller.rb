@@ -27,32 +27,32 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def add_friend
+  def request_friendship
     user = User.find(params[:id])
 
-    RequestedFriendship.create(from_node: current_user, to_node: user, weight: 1.0)
+    current_user.request_friendship!(user)
 
     flash[:success] = 'Запрос на добавление в друзья отправлен. Спасибо.'
 
     redirect_to :back
   end
 
-  def confirm_friend
+  def apply_friendship
     user = User.find(params[:id])
 
-    current_user.rels(dir: :incoming, type: :requested_friendship, between: user).first.destroy
-    current_user.create_rel(:friend, user, weight: 5.0)
-
-    flash[:success] = "Поздравляем! Вы и #{ user.any_name } теперь друзья!"
+    if current_user.apply_friendship!(user)
+      flash[:success] = "Поздравляем! Вы и #{ user.any_name } теперь друзья!"
+    else
+      flash[:danger] = "Пользователь #{ user.any_name } не предлагал вам дружить!"
+    end
 
     redirect_to :back
   end
 
-  def reject_friend
+  def reject_friendship
     user = User.find(params[:id])
 
-    current_user.rels(between: user, type: :requested_friendship).each(&:destroy)
-    current_user.rels(between: user, type: :friend).each(&:destroy)
+    current_user.reject_friendship!(user)
 
     flash[:success] = "Вы и #{ user.any_name } больше не друзья."
 

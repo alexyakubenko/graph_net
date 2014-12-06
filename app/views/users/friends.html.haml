@@ -4,8 +4,8 @@
     - current_user.friend_requests.each do |potential_friend|
       .col-md-3.friend-box
         .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
-        .button= link_to 'Добавить в друзья', confirm_friend_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
-        .button= link_to 'Не добавлять в друзья', reject_friend_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+        .button= link_to 'Добавить в друзья', apply_friendship_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
+        .button= link_to 'Не добавлять в друзья', reject_friendship_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
 
 - if current_user.friends.any?
   %h1 Друзья
@@ -14,7 +14,7 @@
       .col-md-3.friend-box{ data: { id: friend.id }}
         .email= link_to friend.any_name, friend, title: friend.email
         .button= link_to 'Написать сообщение', messages_user_path(friend), class: [:btn, 'btn-primary', 'send-msg']
-        .button= link_to 'Удалить из друзей', reject_friend_user_path(friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+        .button= link_to 'Удалить из друзей', reject_friendship_user_path(friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
 
 - if current_user.friend_suggestions.any?
   %h1 Вы предложили дружбу
@@ -23,4 +23,4 @@
       .col-md-3.friend-box
         .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
         .button= link_to 'Написать сообщение', messages_user_path(potential_friend), class: [:btn, 'btn-primary', 'send-msg']
-        .button= link_to 'Отменить предложение', reject_friend_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+        .button= link_to 'Отменить предложение', reject_friendship_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post

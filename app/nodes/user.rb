@@ -20,12 +20,10 @@ class User
   has_many :in, :friend_requests, model_class: User, relation_class: RequestedFriendship, type: :requested_friendship
   has_many :out, :friend_suggestions, model_class: User, relation_class: RequestedFriendship, type: :requested_friendship
 
+  has_many :both, :friends, model_class: User, relation_class: AppliedFriendship, type: :applied_friendship
+
   def self.find_by_credentials(credentials)
     find_by(email: credentials.first) rescue nil
-  end
-
-  def friends
-    @friends ||= self.rels(type: :friend).map { |r| r.end_node == self ? r.start_node : r.end_node }
   end
 
   def name
@@ -41,5 +39,28 @@ class User
         "MATCH ()-[r:message]->(i) WHERE i.uuid = {i_id} AND r.unread = true RETURN r",
         i_id: self.uuid
     )
+  end
+
+  def request_friendship!(user)
+    RequestedFriendship.create(from_node: self, to_node: user, weight: 1.0)
+  end
+
+  def reject_friendship!(user)
+    Neo4j::Session.query(
+        "MATCH (i:User)-[r]-(u:User) WHERE TYPE(r) in ['applied_friendship', 'requested_friendship'] AND u.id = {u_id} AND i.id = {i_id} RETURN r;",
+        u_id: user.uuid,
+        i_id: self.uuid
+    )
+  end
+
+  def apply_friendship!(user)
+    friendship_request = current_user.rels(dir: :incoming, type: :requested_friendship, between: user).first
+
+    if friendship_request
+      friendship_request.destroy
+      AppliedFriendship.create(from_node: current_user, to_node: user, weight: 5.0)
+    else
+      false
+    end
   end
 end

@@ -10,10 +10,10 @@ Rails.application.routes.draw do
 
   resources :users, except: :destroy do
     member do
-      get :add_friend
       get :messages
-      post :confirm_friend
-      post :reject_friend
+      post :request_friendship
+      post :apply_friendship
+      post :reject_friendship
       post :send_message
     end
 
