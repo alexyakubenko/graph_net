@@ -1,14 +1,22 @@
 .row
-  - if message.end_node == current_user
-    %blockquote.blockquote-reverse
-      %p= link_to_if @user.blank?, message.props[:body], messages_user_path(message.start_node.uuid)
-      %footer
+  - my_message = message.end_node != current_user
+  - user = my_message ? message.end_node : message.start_node
+
+  %blockquote{ class: "#{ 'blockquote-reverse' if my_message }"}
+    %p
+      - if @user.blank?
+        = link_to messages_user_path(user.uuid) do
+          - if message.props[:unread]
+            %strong= message.props[:body]
+          - else
+            = message.props[:body]
+      - else
+        = message.props[:body]
+
+    %footer
+      - if my_message
         %cite= "#{ time_ago_in_words Time.parse(message.props[:created_at]) } назад"
         = link_to "#{ current_user.any_name } (Вы)", current_user
-  - else
-    %blockquote
-      %p= link_to_if @user.blank?, message.props[:body], messages_user_path(message.end_node.uuid)
-      %footer
-        = link_to message.end_node.any_name, message.end_node
+      - else
+        = link_to user.any_name, user
         %cite= "#{ time_ago_in_words Time.parse(message.props[:created_at]) } назад"
-
