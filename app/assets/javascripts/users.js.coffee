@@ -4,7 +4,7 @@ $ ->
 
 
   $('button#add-attribute').click =>
-    $.post(Routes.attributes_path(
+    $.post(Routes.create_attribute_users_path(
         format: 'json'
       ),
         value: $('#attribute-value').val(),
@@ -19,7 +19,7 @@ $ ->
   $(document).off('click', 'a.remove-attr').on 'click', 'a.remove-attr', ->
     id = $(@).data('id')
     $.ajax(
-      url: Routes.attributes_path(),
+      url: Routes.delete_attribute_users_path(),
       type: 'DELETE',
       data:
         id: id

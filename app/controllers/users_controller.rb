@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include AttributesHelper
+
   skip_before_filter :require_login, only: [:new, :create]
 
   def new
@@ -75,6 +77,31 @@ class UsersController < ApplicationController
     mark_unread_messages! if @user
 
     @messages.sort_by!{ |m| m.props[:created_at] }
+  end
+
+  def delete_attribute
+    relation = Neo4j::Relationship.load(params[:id])
+    if relation && relation.start_node == current_user
+      relation.del
+      render json: { success: true, undefined_attribute_types_html: undefined_attribute_types_html }
+    else
+      render json: { success: false }
+    end
+  end
+
+  def create_attribute
+    attribute = Attribute.find_by(value: params[:value]) || Attribute.create(value: params[:value])
+    relation = current_user.create_rel(params[:type], attribute, weight: Attribute::RELATIONS[params[:type]][:weight])
+
+    if relation
+      render json: {
+          success: true,
+          html: render_to_string(partial: 'users/attribute', locals: { attribute: relation }, formats: [:html]),
+          undefined_attribute_types_html: undefined_attribute_types_html
+      }
+    else
+      render json: { success: false }
+    end
   end
 
   private
