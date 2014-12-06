@@ -5,8 +5,8 @@ class PostedBy
 
   property :weight, type: Float
 
-  from_class User
+  from_class Post
   to_class User
 
-  type :requested_friendship
+  type :posted_by
 end

@@ -1,7 +1,9 @@
-%h1= current_user == @user ? 'Ваши статьи' : "Статьи пользователя #{ @user.any_name }"
+.text-right
+  = link_to 'Добавить статью', new_post_path, class: [:btn, 'btn-primary']
 
-%table.table.table-hover
-  %tbody
-    = render @user.posts.to_a
+- if @user.posts.any?
+  %h1= current_user == @user ? 'Созданные вами статьи' : "Статьи, созданные пользователем #{ @user.any_name }"
+  %table.table.table-hover
+    %tbody
+      = render @user.posts.to_a
 
-= link_to 'Добавить статью', new_post_path, class: [:btn, 'btn-primary']
