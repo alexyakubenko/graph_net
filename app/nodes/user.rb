@@ -37,8 +37,8 @@ class User
 
   def unread_messages
     @unread_messages ||= Neo4j::Session.query(
-        "MATCH ()-[r:message]->(i) WHERE i.uuid = {my_id} AND r.unread = true RETURN r",
-        my_id: self.uuid
+        "MATCH ()-[r:message]->(i) WHERE i.uuid = {i_id} AND r.unread = true RETURN r",
+        i_id: self.uuid
     )
   end
 end

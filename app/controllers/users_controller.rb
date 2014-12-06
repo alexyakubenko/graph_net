@@ -72,6 +72,8 @@ class UsersController < ApplicationController
 
     @messages = @user ? current_user.rels(between: @user, type: :message) : current_user.rels(type: :message)
 
+    mark_unread_messages! if @user
+
     @messages.sort_by!{ |m| m.props[:created_at] }
   end
 
@@ -79,5 +81,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def mark_unread_messages!
+    Neo4j::Session.query(
+        "MATCH (u)-[r:message]->(i) WHERE i.uuid = {i_id} AND u.uuid = {u_id} AND r.unread = true SET r.unread = false",
+        i_id: current_user.uuid,
+        u_id: @user.uuid
+    )
   end
 end
