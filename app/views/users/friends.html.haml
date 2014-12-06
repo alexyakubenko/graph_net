@@ -1,26 +1,28 @@
-- if current_user.friend_requests.any?
-  %h1 Хотят дружить
-  .row
-    - current_user.friend_requests.each do |potential_friend|
-      .col-md-3.friend-box
-        .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
-        .button= link_to 'Добавить в друзья', apply_friendship_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
-        .button= link_to 'Не добавлять в друзья', reject_friendship_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+- my_friends = current_user == @user
+.text-center
+  - if @user.friend_requests.any?
+    %h1= "Хотят дружить с #{ my_friends ? 'вами' : "#{ @user.any_name }" }"
+    .row
+      - @user.friend_requests.each do |potential_friend|
+        .col-md-3.friend-box
+          .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
+          .button= link_to 'Добавить в друзья', apply_friendship_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
+          .button= link_to 'Не добавлять в друзья', reject_friendship_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
 
-- if current_user.friends.any?
-  %h1 Друзья
-  .row
-    - current_user.friends.each do |friend|
-      .col-md-3.friend-box{ data: { id: friend.id }}
-        .email= link_to friend.any_name, friend, title: friend.email
-        .button= link_to 'Написать сообщение', messages_user_path(friend), class: [:btn, 'btn-primary', 'send-msg']
-        .button= link_to 'Удалить из друзей', reject_friendship_user_path(friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+  - if @user.friends.any?
+    %h1= my_friends ? 'Ваши друзья' : "Друзья пользователя #{ @user.any_name }"
+    .row
+      - @user.friends.each do |friend|
+        .col-md-3.friend-box{ data: { id: friend.id }}
+          .email= link_to friend.any_name, friend, title: friend.email
+          .button= link_to 'Написать сообщение', messages_user_path(friend), class: [:btn, 'btn-primary', 'send-msg']
+          .button= link_to 'Удалить из друзей', reject_friendship_user_path(friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
 
-- if current_user.friend_suggestions.any?
-  %h1 Вы предложили дружбу
-  .row
-    - current_user.friend_suggestions.each do |potential_friend|
-      .col-md-3.friend-box
-        .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
-        .button= link_to 'Написать сообщение', messages_user_path(potential_friend), class: [:btn, 'btn-primary', 'send-msg']
-        .button= link_to 'Отменить предложение', reject_friendship_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post
+  - if @user.friend_suggestions.any?
+    %h1= "#{ my_friends ? 'Вы предложили' : "#{ @user.any_name } предложил(а)" } дружбу"
+    .row
+      - @user.friend_suggestions.each do |potential_friend|
+        .col-md-3.friend-box
+          .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
+          .button= link_to 'Написать сообщение', messages_user_path(potential_friend), class: [:btn, 'btn-primary', 'send-msg']
+          .button= link_to 'Отменить предложение', reject_friendship_user_path(potential_friend), class: [:btn, 'btn-danger', 'decline-friend'], method: :post

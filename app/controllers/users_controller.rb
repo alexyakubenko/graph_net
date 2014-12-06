@@ -75,6 +75,7 @@ class UsersController < ApplicationController
   end
 
   def friends
+    @user = User.find(params[:id]) || current_user
   end
 
   def messages

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   get 'recommendations', to: 'recommendations#index', as: :recommendations
-  get 'friends', to: 'users#friends', as: :friends
+  get 'friends(/:id)', to: 'users#friends', as: :friends
   get 'messages', to: 'users#messages', as: :messages
 
   get 'login' => 'user_sessions#new', as: :login
