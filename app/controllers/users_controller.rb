@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     end
 
     user = User.find(params[:id])
-    current_user.create_rel(:message, user, weight: 0.25, body: params[:message], created_at: Time.now.strftime('%c'))
+    current_user.create_rel(:message, user, weight: 0.25, body: params[:message], unread: true, created_at: Time.now.strftime('%c'))
     flash[:success] = "Сообщение пользователю #{ user.any_name } отправлено."
     redirect_to :back
   end

@@ -32,6 +32,13 @@ class User
   end
 
   def any_name
-    name || self.email
+    @any_name ||= name || self.email
+  end
+
+  def unread_messages
+    @unread_messages ||= Neo4j::Session.query(
+        "MATCH ()-[r:message]->(i) WHERE i.uuid = {my_id} AND r.unread = true RETURN r",
+        my_id: self.uuid
+    )
   end
 end
