@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :user_sessions, only: [:create, :destroy]
   resources :home, only: [:index]
 
-  resources :posts, except: :destroy
+  resources :posts, except: :destroy do
+    post :like, on: :member
+  end
 
   resources :users, except: :destroy do
     member do

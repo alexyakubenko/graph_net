@@ -1,2 +1,12 @@
+- if @post.creator != current_user
+  - if @post.liked_by?(current_user)
+    .alert.alert-success.text-center Вам понравилась данная статья
+  - else
+    .text-right
+      = link_to 'Мне нравится данная статья', like_post_path(@post), class: [:btn, 'btn-info'], method: :post
+- else
+  .text-right
+    = link_to 'Редактировать', edit_post_path(@post), class: [:btn, 'btn-warning']
+
 %h1.text-center= @post.title
 %blockquote{ style: 'white-space: pre-wrap;' }= raw @post.body

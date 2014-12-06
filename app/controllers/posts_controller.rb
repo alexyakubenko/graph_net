@@ -40,6 +40,18 @@ class PostsController < ApplicationController
     @post = Post.find params[:id]
   end
 
+  def like
+    post = Post.find params[:id]
+
+    if post.creator == current_user
+      flash[:danger] = 'Вы не можете лайкнуть свою статью'
+    else
+      LikeOf.create(from_node: current_user, to_node: post, weight: 2.0)
+    end
+
+    redirect_to :back
+  end
+
   private
 
   def post_params
