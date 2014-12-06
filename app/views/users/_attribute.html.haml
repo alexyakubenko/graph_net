@@ -1,5 +1,7 @@
 %tr{ class: "attribute-#{ attribute.id }" }
-  %td= Attribute::RELATIONS[attribute.rel_type][:title]
-  %td= attribute.end_node.value
+  %td.text-right
+    = "#{ Attribute::RELATIONS[attribute.rel_type][:title] }:"
+  %td
+    %strong= attribute.end_node.value
   - if @user == current_user
     %td= link_to 'Remove', js_nothing, data: { id: attribute.id }, class: [:btn, :'btn-danger', :'btn-xs', :'remove-attr']
