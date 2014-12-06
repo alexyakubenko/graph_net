@@ -9,4 +9,8 @@
     = link_to 'Редактировать', edit_post_path(@post), class: [:btn, 'btn-warning']
 
 %h1.text-center= @post.title
-%blockquote{ style: 'white-space: pre-wrap;' }= raw @post.body
+%blockquote{ style: 'white-space: pre-wrap;' }
+  = raw @post.body
+  %footer.text-right
+    автор
+    = link_to @post.creator.any_name, @post.creator
