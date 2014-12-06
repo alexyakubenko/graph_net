@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   def add_friend
     user = User.find(params[:id])
 
-    current_user.create_rel(:friend_request, user, weight: 1.0)
+    RequestedFriendship.create(from_node: current_user, to_node: user, weight: 1.0)
 
     flash[:success] = 'Запрос на добавление в друзья отправлен. Спасибо.'
 
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def confirm_friend
     user = User.find(params[:id])
 
-    current_user.rels(dir: :incoming, type: :friend_request, end_node: user).first.destroy
+    current_user.rels(dir: :incoming, type: :requested_friendship, between: user).first.destroy
     current_user.create_rel(:friend, user, weight: 5.0)
 
     flash[:success] = "Поздравляем! Вы и #{ user.any_name } теперь друзья!"
@@ -51,7 +51,8 @@ class UsersController < ApplicationController
   def reject_friend
     user = User.find(params[:id])
 
-    current_user.rels(between: user).select { |r| r.rel_type.in?([:friend, :friend_request]) }.each(&:destroy)
+    current_user.rels(between: user, type: :requested_friendship).each(&:destroy)
+    current_user.rels(between: user, type: :friend).each(&:destroy)
 
     flash[:success] = "Вы и #{ user.any_name } больше не друзья."
 

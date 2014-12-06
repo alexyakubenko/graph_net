@@ -1,4 +1,4 @@
-class PostedBy
+class RequestedFriendship
   include Neo4j::ActiveRel
 
   property :weight, type: Float

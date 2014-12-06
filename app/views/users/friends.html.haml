@@ -1,7 +1,7 @@
 - if current_user.friend_requests.any?
   %h1 Хотят дружить
   .row
-    - current_user.friend_requests.map(&:start_node).each do |potential_friend|
+    - current_user.friend_requests.each do |potential_friend|
       .col-md-3.friend-box
         .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
         .button= link_to 'Добавить в друзья', confirm_friend_user_path(potential_friend), class: [:btn, 'btn-primary', 'add-friend'], method: :post
@@ -19,7 +19,7 @@
 - if current_user.friend_suggestions.any?
   %h1 Вы предложили дружбу
   .row
-    - current_user.friend_suggestions.map(&:end_node).each do |potential_friend|
+    - current_user.friend_suggestions.each do |potential_friend|
       .col-md-3.friend-box
         .email= link_to potential_friend.any_name, potential_friend, title: potential_friend.email
         .button= link_to 'Написать сообщение', messages_user_path(potential_friend), class: [:btn, 'btn-primary', 'send-msg']

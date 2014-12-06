@@ -15,18 +15,13 @@ class User
   validates :password_confirmation, presence: true
   validates :email, presence: true
 
-  has_many :in, :posts, model_class: Post, relation_class: PostedBy
+  has_many :in, :posts, model_class: Post, relation_class: PostedBy, type: :posted_by
+
+  has_many :in, :friend_requests, model_class: User, relation_class: RequestedFriendship, type: :requested_friendship
+  has_many :out, :friend_suggestions, model_class: User, relation_class: RequestedFriendship, type: :requested_friendship
 
   def self.find_by_credentials(credentials)
     find_by(email: credentials.first) rescue nil
-  end
-
-  def friend_requests
-    @friend_requests ||= self.rels(dir: :incoming, type: :friend_request)
-  end
-
-  def friend_suggestions
-    @friend_suggestions ||= self.rels(dir: :outgoing, type: :friend_request)
   end
 
   def friends
