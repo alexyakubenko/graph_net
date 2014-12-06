@@ -14,9 +14,9 @@
             %li{ class: "#{ 'active' if request.path == recommendations_path }"}
               = link_to 'Рекоммендации', :recommendations
             %li{ class: "#{ 'active' if request.path == friends_path }"}
-              = link_to "Друзья#{ "(#{ current_user.friend_requests.count })" if current_user.friend_requests.any? }", :friends
+              = link_to "Друзья#{ " (#{ current_user.friend_requests.count })" if current_user.friend_requests.any? }", :friends
             %li{ class: "#{ 'active' if request.path =~ /messages/ }"}
-              = link_to "Сообщения#{ "(#{ current_user.unread_messages.count })" if current_user.unread_messages.any? }", :messages
+              = link_to "Сообщения#{ " (#{ current_user.unread_messages.count })" if current_user.unread_messages.any? }", :messages
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
               = link_to "#", class: 'dropdown-toggle', data: { toggle: :dropdown } do

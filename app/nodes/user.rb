@@ -23,6 +23,10 @@ class User
     @friend_requests ||= self.rels(dir: :incoming, type: :friend_request)
   end
 
+  def friend_suggestions
+    @friend_suggestions ||= self.rels(dir: :outgoing, type: :friend_request)
+  end
+
   def friends
     @friends ||= self.rels(type: :friend).map { |r| r.end_node == self ? r.start_node : r.end_node }
   end
