@@ -62,11 +62,11 @@ class User
   end
 
   def apply_friendship!(user)
-    friendship_request = current_user.rels(dir: :incoming, type: :requested_friendship, between: user).first
+    friendship_request = rels(dir: :incoming, type: :requested_friendship, between: user).first
 
     if friendship_request
       friendship_request.destroy
-      AppliedFriendship.create(from_node: current_user, to_node: user, weight: 5.0)
+      AppliedFriendship.create(from_node: self, to_node: user, weight: 5.0)
     else
       false
     end
