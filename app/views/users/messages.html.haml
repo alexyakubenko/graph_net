@@ -1,5 +1,6 @@
 %h1= "#{ @user ? "Переписка между вами и #{ @user.any_name }" : 'Сообщения' }"
 
+
 = render partial: 'message', collection: @messages
 
 - if @user
