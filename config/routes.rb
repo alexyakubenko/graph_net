@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  root to: 'home#index'
+  root to: 'users#index'
 
   resources :user_sessions, only: [:create, :destroy]
   resources :home, only: [:index]
 
-  resources :users, only: [:new, :create, :show] do
+  resources :users, except: :destroy do
     member do
       get :add_friend
       get :messages
