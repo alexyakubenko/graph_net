@@ -16,6 +16,7 @@ class User
   validates :email, presence: true
 
   has_many :in, :posts, model_class: Post, relation_class: PostedBy, type: :posted_by
+  has_many :out, :liked_posts, model_class: Post, relation_class: LikeOf, type: :like_of
 
   has_many :in, :friend_requests, model_class: User, relation_class: RequestedFriendship, type: :requested_friendship
   has_many :out, :friend_suggestions, model_class: User, relation_class: RequestedFriendship, type: :requested_friendship
