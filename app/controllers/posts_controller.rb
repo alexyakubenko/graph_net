@@ -3,7 +3,7 @@ class PostsController < ApplicationController
     @post = Post.new post_params
 
     if @post.save
-      PostedBy.create(from_node: @post, to_node: current_user, weight: 4.0)
+      PostedBy.create(from_node: @post, to_node: current_user)
       flash[:success] = 'Благодарим вас за публикацию статьи.'
       redirect_to @post
     else
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
     if post.creator == current_user
       flash[:danger] = 'Вы не можете лайкнуть свою статью'
     else
-      LikeOf.create(from_node: current_user, to_node: post, weight: 2.0)
+      LikeOf.create(from_node: current_user, to_node: post)
     end
 
     redirect_to :back

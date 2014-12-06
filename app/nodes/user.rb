@@ -42,7 +42,7 @@ class User
   end
 
   def request_friendship!(user)
-    RequestedFriendship.create(from_node: self, to_node: user, weight: 1.0)
+    RequestedFriendship.create(from_node: self, to_node: user)
   end
 
   def reject_friendship!(user)
