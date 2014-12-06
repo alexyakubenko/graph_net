@@ -1,11 +1,12 @@
-%h1= "#{ @user ? "Переписка между вами и #{ @user.any_name }" : 'Сообщения' }"
+%h1.text-center= "#{ @user ? "Переписка между вами и #{ @user.any_name }" : 'Сообщения' }"
 
+.row
+  .col-md-6.col-md-offset-3
+    = render partial: 'message', collection: @messages
 
-= render partial: 'message', collection: @messages
-
-- if @user
-  = form_tag send_message_user_path(@user) do
-    .form-group
-      = text_area_tag :message, '', placeholder: 'Введите сообщение', class: 'form-control'
-    .form-group
-      = submit_tag 'Отправить', class: ['btn', 'btn-info']
+    - if @user
+      = form_tag send_message_user_path(@user) do
+        .form-group
+          = text_area_tag :message, '', placeholder: 'Введите сообщение', class: 'form-control'
+        .form-group
+          = submit_tag 'Отправить', class: ['btn', 'btn-info']
