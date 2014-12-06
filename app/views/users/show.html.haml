@@ -29,13 +29,14 @@
             %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
             %button.btn.btn-primary#add-attribute{ type: :button } Добавить
   - else
-    = render 'friend_links', user: @user
-    = link_to messages_user_path(@user), class: [:btn, 'btn-info'] do
-      %span.glyphicon.glyphicon-envelope
-      Написать сообщение
-    = link_to friends_path(@user), class: [:btn, 'btn-success'] do
-      %span.glyphicon.glyphicon-heart
-      Друзья
-    = link_to posts_path(@user), class: [:btn, 'btn-warning'] do
-      %span.glyphicon.glyphicon-file
-      Статьи
+    .margin-0-5
+      = render 'friend_links', user: @user
+      = link_to messages_user_path(@user), class: [:btn, 'btn-info'] do
+        %span.glyphicon.glyphicon-envelope
+        Написать сообщение
+      = link_to friends_path(@user), class: [:btn, 'btn-success'] do
+        %span.glyphicon.glyphicon-heart
+        Друзья
+      = link_to posts_path(@user), class: [:btn, 'btn-warning'] do
+        %span.glyphicon.glyphicon-file
+        Статьи
