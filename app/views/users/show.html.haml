@@ -23,3 +23,5 @@
         .modal-footer
           %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
           %button.btn.btn-primary#add-attribute{ type: :button } Добавить
+- else
+  = link_to "Статьи пользователя #{ @user.any_name }", posts_path(id: @user.uuid), class: [:btn, 'btn-info']
