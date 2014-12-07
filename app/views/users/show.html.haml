@@ -1,42 +1,21 @@
-%h1.text-center= @user == current_user ? 'Ваш профиль' : "Профиль пользователя #{ @user.any_name }"
 
-.row
-  .col-md-6.col-md-offset-3
-    %table.table.table-stripped#attributes-list
-      %tbody
-        = render partial: 'attribute', collection: Attribute::RELATIONS.keys.map { |rel_type| @user.rels(type: rel_type) }.flatten
+%h1.text-center= my_page? ? 'Ваш профиль' : "Профиль пользователя #{ @user.any_name }"
 
-.text-center
-  - if @user == current_user
-    %button.btn.btn-primary{ type: :button, data: { toggle: :modal, target: '#add-attribute' } }
-      %span.glyphicon.glyphicon-plus
-      Добавить характеристику
-
-    .modal.fade#add-attribute{ tabindex: -1, role: :dialog, 'aria-labelledby' => 'add-attribute-label', 'aria-hidden' => true }
-      .modal-dialog
-        .modal-content
-          .modal-header
-            %button.close{ type: :button, data: { dismiss: :modal } }
-              %span{ 'aria-hidden' => true } &times;
-              %span.sr-only Close
-            %h4.modal-title#add-attribute-label Добавить характеристику
-          .modal-body
-            .form-group
-              = select_tag :type, undefined_attribute_types_html, class: 'form-control', id: 'attribute-type'
-            .form-group
-              = text_field_tag :value, '', class: 'form-control', id: 'attribute-value'
-          .modal-footer
-            %button.btn.btn-default{ type: :button, data: { dismiss: :modal } } Отмена
-            %button.btn.btn-primary#add-attribute{ type: :button } Добавить
-  - else
-    .margin-0-5
-      = render 'friend_links', user: @user
-      = link_to messages_user_path(@user), class: [:btn, 'btn-info'] do
-        %span.glyphicon.glyphicon-envelope
-        Написать сообщение
-      = link_to friends_path(@user), class: [:btn, 'btn-success'] do
-        %span.glyphicon.glyphicon-heart
-        Друзья
-      = link_to posts_path(@user), class: [:btn, 'btn-warning'] do
-        %span.glyphicon.glyphicon-file
-        Статьи
+- if my_page?
+  = form_tag update_profile_attributes_users_path do
+    = render 'attributes'
+    .text-center
+      = submit_tag 'Обновить', class: ['btn', 'btn-primary']
+- else
+  = render 'attributes'
+  .text-center.margin-0-5
+    = render 'friend_links', user: @user
+    = link_to messages_user_path(@user), class: [:btn, 'btn-info'] do
+      %span.glyphicon.glyphicon-envelope
+      Написать сообщение
+    = link_to friends_path(@user), class: [:btn, 'btn-success'] do
+      %span.glyphicon.glyphicon-heart
+      Друзья
+    = link_to posts_path(@user), class: [:btn, 'btn-warning'] do
+      %span.glyphicon.glyphicon-file
+      Статьи

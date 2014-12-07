@@ -16,10 +16,7 @@ Rails.application.routes.draw do
       post :send_message
     end
 
-    collection do
-      post :create_attribute
-      delete :delete_attribute
-    end
+    post :update_profile_attributes, on: :collection
   end
 
   get 'recommendations', to: 'recommendations#index', as: :recommendations

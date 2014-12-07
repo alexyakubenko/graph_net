@@ -88,4 +88,48 @@ class User
   def send_message!(message_body, recipient)
     SentMessageTo.create(from_node: self, to_node: recipient, body: message_body)
   end
+
+  def profile_attributes(include_blank = false)
+    Attribute::RELATIONS.map do |k, v|
+      rels = rels(dir: :outgoing, type: k).to_a
+      if rels.any?
+        rels.map { |r| [r.rel_type, r.end_node.value] }
+      else
+        include_blank ? [[k, nil]] : nil
+      end
+    end.flatten(1).compact
+  end
+
+  def profile_attributes=(attributes)
+    clear_profile_attributes!
+    create_profile_attributes!(attributes)
+  end
+
+  private
+
+  def create_profile_attributes!(attributes)
+    attributes.each do |k, v|
+      create_profile_attribute!(k, v)
+    end
+  end
+
+  def create_profile_attribute!(k, v)
+    if v.is_a? Array
+      raise Exception.new("Only 1 value allowed for #{k }") unless Attribute::RELATIONS[k][:multiple]
+      v.each do |value|
+        create_profile_attribute!(k, value)
+      end
+    else
+      create_rel(k, Attribute.find_or_create(v), weight: Attribute::RELATIONS[k][:weight]) if v.present?
+    end
+  end
+
+  def clear_profile_attributes!
+    Neo4j::Session.query(
+        "MATCH (:Attribute)<-[r]-(i:User) WHERE TYPE(r) in {attribute_relation_types} AND i.uuid = {i_id} DELETE r;",
+        i_id: self.uuid,
+        attribute_relation_types: Attribute::RELATIONS.keys
+    )
+    Attribute.clear_free_nodes!
+  end
 end
