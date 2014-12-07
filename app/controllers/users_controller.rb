@@ -88,7 +88,7 @@ class UsersController < ApplicationController
 
   def update_profile_attributes
     current_user.profile_attributes = params[:profile_attributes]
-    flash[:info] = params.inspect
+    flash[:info] = 'Профиль обновлен.'
     redirect_to :back
   end
 
