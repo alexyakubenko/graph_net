@@ -12,7 +12,12 @@
       %span.glyphicon.glyphicon-edit
       Редактировать
 
+
 %h1.text-center= @post.title
+
+.text-center
+  = render 'tags', post: @post
+
 %blockquote{ style: 'white-space: pre-wrap;' }
   = raw @post.body
   %footer.text-right

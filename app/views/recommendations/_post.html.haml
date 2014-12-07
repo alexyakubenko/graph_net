@@ -1,4 +1,7 @@
 .row.recommendation.text-center
   = link_to object.title, object
-  %span.glyphicon.glyphicon-heart
-  = object.likes_count
+  = render 'posts/tags', post: object
+
+  %span.badge
+    %span.glyphicon.glyphicon-heart
+    = object.likes_count
