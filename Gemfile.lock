@@ -48,6 +48,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    debase (0.1.0)
+      debase-ruby_core_source
+    debase-ruby_core_source (0.7.3)
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.2.2)
@@ -179,6 +182,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   coffee-rails (~> 4.0.0)
+  debase
   haml
   jquery-rails
   js-routes

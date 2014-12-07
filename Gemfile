@@ -22,6 +22,7 @@ gem 'neo4j', '~> 3.0.4'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'debase'
 end
 
 group :production do
