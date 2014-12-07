@@ -14,9 +14,15 @@
         - if current_user
           %ul.nav.navbar-nav
             %li{ class: "#{ 'active' if request.path =~ /messages/ }"}
-              = link_to "Сообщения#{ " (#{ current_user.unread_messages.count })" if current_user.unread_messages.any? }", :messages
+              = link_to :messages do
+                Сообщения
+                - if current_user.unread_messages.any?
+                  %span.badge= current_user.unread_messages.count
             %li{ class: "#{ 'active' if request.path =~ /friends/ }"}
-              = link_to "Друзья#{ " (#{ current_user.friend_requests.count })" if current_user.friend_requests.any? }", :friends
+              = link_to :friends do
+                Друзья
+                - if current_user.friend_requests.any?
+                  %span.badge= current_user.friend_requests.count
             %li{ class: "#{ 'active' if request.path == posts_path }"}
               = link_to 'Статьи', :posts
             %li{ class: "#{ 'active' if request.path == recommendations_path }"}

@@ -1,11 +1,11 @@
 %tr.post
   %td
     = link_to post.title, post
-  %td
-    %span.glyphicon.glyphicon-heart
-    %span= post.likes_count
   - if post.creator == current_user
     %td
       = link_to edit_post_path(post), class: [:btn, 'btn-warning'] do
         %span.glyphicon.glyphicon-edit
         Редактировать
+  %td
+    %span.glyphicon.glyphicon-heart
+    %span= post.likes_count
