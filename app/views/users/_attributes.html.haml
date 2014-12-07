@@ -1,5 +1,5 @@
 .row
   .col-md-6.col-md-offset-3
-    %table.table.table-stripped#attributes-list
+    %table.table.table-hover.without-borders
       %tbody
         = render partial: 'attribute', collection: @user.profile_attributes(my_page?)
