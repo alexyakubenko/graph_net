@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root to: 'users#index'
 
   resources :user_sessions, only: [:create, :destroy]
-  resources :home, only: [:index]
 
   resources :posts, except: :destroy do
     post :like, on: :member
