@@ -26,11 +26,13 @@ class Attribute
 
   property :value
 
-  def self.clear_free_nodes!
-    Neo4j::Session.query("MATCH (a:Attribute) WHERE NOT (a)<-[]-(:User) DELETE a")
-  end
+  class << self
+    def clear_free_nodes!
+      Neo4j::Session.query("MATCH (a:Attribute) WHERE NOT (a)<-[]-(:User) DELETE a")
+    end
 
-  def self.find_or_create(value)
-    find_by(value: value) || create(value: value)
+    def find_or_create(value)
+      find_by(value: value) || create(value: value)
+    end
   end
 end

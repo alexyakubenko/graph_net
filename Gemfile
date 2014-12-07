@@ -14,6 +14,9 @@ gem 'js-routes'
 gem 'unobtrusive_flash'
 # gem 'therubyracer',  platforms: :ruby
 
+gem 'jquery-ui-rails'
+gem 'rails4-autocomplete'
+
 gem 'sorcery'#, path: '~/RubymineProjects/startdatelabs/sorcery'
 gem 'simple_form'
 

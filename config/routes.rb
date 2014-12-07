@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     post :update_profile_attributes, on: :collection
   end
 
+  get 'autocomplete_attribute', to: 'attributes#autocomplete_attribute_value', as: :autocomplete_attribute
+
   get 'recommendations', to: 'recommendations#index', as: :recommendations
   get 'friends(/:id)', to: 'users#friends', as: :friends
   get 'messages', to: 'users#messages', as: :messages
