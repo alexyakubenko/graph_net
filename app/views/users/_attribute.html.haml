@@ -1,8 +1,21 @@
-%tr
-  %td.text-right
-    = "#{ Attribute::RELATIONS[attribute.first][:title] }:"
-  %td
+- key, value = attribute
+
+- if value.is_a? Array
+  - value.each_with_index do |v, i|
+    = render 'attribute', attribute: [key, v], show_plus: (i == value.size - 1), hide_label: (i > 0)
+- else
+
+  %tr
+    %td.text-right
+      - unless defined?(hide_label) && hide_label
+        = "#{ Attribute::RELATIONS[key][:title] }:"
     - if my_page?
-      = text_field_tag "profile_attributes[#{ attribute.first }]#{ '[]' if Attribute::RELATIONS[attribute.first][:multiple] }", attribute.last, class: 'form-control'
+      %td
+        = text_field_tag "profile_attributes[#{ key }]#{ '[]' if Attribute::RELATIONS[key][:multiple] }", value, class: 'form-control'
+      %td
+        - if defined?(show_plus) && show_plus
+          = link_to js_nothing do
+            %span.glyphicon.glyphicon-plus
     - else
-      %strong= attribute.last
+      %td
+        %strong= value

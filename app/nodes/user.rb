@@ -90,14 +90,19 @@ class User
   end
 
   def profile_attributes(include_blank = false)
-    Attribute::RELATIONS.map do |k, v|
+    profile_attrs = {}
+
+    Attribute::RELATIONS.each do |k, v|
       rels = rels(dir: :outgoing, type: k).to_a
       if rels.any?
-        rels.map { |r| [r.rel_type, r.end_node.value] }
+        profile_attrs[k] = rels.map { |r| r.end_node.value }
+        profile_attrs[k] = profile_attrs[k].first unless Attribute::RELATIONS[k][:multiple]
       else
-        include_blank ? [[k, nil]] : nil
+        profile_attrs[k] = nil if include_blank
       end
-    end.flatten(1).compact
+    end
+
+    profile_attrs
   end
 
   def profile_attributes=(attributes)
