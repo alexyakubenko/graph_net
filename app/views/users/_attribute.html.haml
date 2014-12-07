@@ -17,7 +17,7 @@
           = text_field_tag "profile_attributes[#{ key }]", value, class: 'form-control'
       %td
         - if defined?(show_plus) && show_plus
-          = link_to js_nothing, class: 'add-profile-attribute' do
+          = link_to js_nothing, class: 'add-attribute' do
             %span.glyphicon.glyphicon-plus
     - else
       %td

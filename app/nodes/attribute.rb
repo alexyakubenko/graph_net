@@ -1,21 +1,21 @@
 class Attribute
   RELATIONS = {
-      name: {
+      has_name: {
           title: 'Имя',
           weight: 1.0
       },
-      date_of_birth: {
+      when_was_born: {
           title: 'Дата Рождения',
           weight: 1.2,
           type: :date
       },
-      interest: {
+      tagged_by: {
           title: 'Интерес',
           multiple: true,
           weight: 3,
           autocomplete: true
       },
-      home_city: {
+      where_was_born: {
           title: 'Родной город',
           weight: 2,
           autocomplete: true

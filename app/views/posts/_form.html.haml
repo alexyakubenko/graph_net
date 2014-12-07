@@ -13,4 +13,20 @@
         = f.text_area :body, class: 'form-control', rows: 15, placeholder: "#{ errors[:body].present? ? 'Текст статьи не может быть пустым' : 'Текст' }"
 
       .form-group
+        %table.table.table-hover.without-borders
+          - tag_values = f.object.tag_values
+          - tag_values << nil if tag_values.empty?
+          - tag_values.each_with_index do |tag_value, i|
+            %tr
+              %td.text-right
+                - if i == 0
+                  Тэги:
+              %td
+                = autocomplete_field_tag "post[tag_values][]", tag_value, autocomplete_attribute_path, class: 'form-control'
+              %td
+                - if i == (f.object.tag_values.size - 1)
+                  = link_to js_nothing, class: 'add-attribute' do
+                    %span.glyphicon.glyphicon-plus
+
+      .form-group
         = f.submit "#{ f.object.persisted? ? 'Обновить' : 'Создать' }", class: ['btn', 'btn-primary']

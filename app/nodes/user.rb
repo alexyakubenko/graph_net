@@ -28,7 +28,7 @@ class User
   end
 
   def name
-    @name ||= rels(type: :name).first.try(:end_node).try(:value)
+    @name ||= rels(type: :has_name).first.try(:end_node).try(:value)
   end
 
   def any_name
@@ -67,7 +67,7 @@ class User
 
     if friendship_request
       friendship_request.destroy
-      AppliedFriendship.create(from_node: self, to_node: user, weight: 5.0)
+      AppliedFriendship.create(from_node: self, to_node: user)
     else
       false
     end
