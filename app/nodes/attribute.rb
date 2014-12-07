@@ -7,7 +7,7 @@ class Attribute
       when_was_born: {
           title: 'Дата Рождения',
           weight: 1.2,
-          type: :date
+          type: Date
       },
       tagged_by: {
           title: 'Интерес',
@@ -28,7 +28,7 @@ class Attribute
 
   class << self
     def clear_free_nodes!
-      Neo4j::Session.query("MATCH (a:Attribute) WHERE NOT (a)<-[]-(:User) DELETE a")
+      Neo4j::Session.query("MATCH (a:Attribute) WHERE NOT (a)<-[]-() DELETE a")
     end
 
     def find_or_create(value)

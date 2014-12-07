@@ -11,14 +11,22 @@
         = "#{ Attribute::RELATIONS[key][:title] }:"
     - if my_page?
       %td
-        - if Attribute::RELATIONS[key][:multiple]
-          = autocomplete_field_tag "profile_attributes[#{ key }][]", value, autocomplete_attribute_path, class: 'form-control'
+        - if Attribute::RELATIONS[key][:type] == Date
+          - date = Date.parse(value) rescue Date.today
+          = select_date date, prefix: "profile_attributes[#{ key }]", start_year: 120.years.ago.year, end_year: Date.today.year
         - else
-          = text_field_tag "profile_attributes[#{ key }]", value, class: 'form-control'
+          - if Attribute::RELATIONS[key][:multiple]
+            = autocomplete_field_tag "profile_attributes[#{ key }][]", value, autocomplete_attribute_path, class: 'form-control'
+          - else
+            = text_field_tag "profile_attributes[#{ key }]", value, class: 'form-control'
       %td
         - if defined?(show_plus) && show_plus
           = link_to js_nothing, class: 'add-attribute' do
             %span.glyphicon.glyphicon-plus
     - else
       %td
-        %strong= value
+        %strong
+          - if Attribute::RELATIONS[key][:type] == Date
+            = Date.parse(value).inspect rescue nil
+          - else
+            = value

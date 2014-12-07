@@ -125,6 +125,7 @@ class User
         create_profile_attribute!(k, value)
       end
     else
+      v = "#{ v[:year] }-#{ v[:month] }-#{ v[:day] }" if Attribute::RELATIONS[k][:type] == Date
       create_rel(k, Attribute.find_or_create(v), weight: Attribute::RELATIONS[k][:weight]) if v.present?
     end
   end
