@@ -3,3 +3,8 @@
     %table.table.table-hover.without-borders
       %tbody
         = render partial: 'attribute', collection: @user.profile_attributes(my_page?)
+        - if my_page?
+          %tr
+            %td
+            %td
+              = submit_tag 'Обновить', class: ['btn', 'btn-primary']

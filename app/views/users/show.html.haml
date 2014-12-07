@@ -4,8 +4,6 @@
 - if my_page?
   = form_tag update_profile_attributes_users_path do
     = render 'attributes'
-    .text-center
-      = submit_tag 'Обновить', class: ['btn', 'btn-primary']
 - else
   = render 'attributes'
   .text-center.margin-0-5
