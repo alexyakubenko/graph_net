@@ -8,7 +8,7 @@ class User
   property :crypted_password
   property :salt
 
-  #validates_uniqueness_of :email, case_sensitive: false
+  validates_uniqueness_of :email, case_sensitive: false
 
   validates :password, length: { minimum: 3 }
   validates :password, confirmation: true
