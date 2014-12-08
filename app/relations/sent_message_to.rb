@@ -2,14 +2,12 @@ class SentMessageTo
   include Neo4j::ActiveRel
 
   before_create -> {
-    self.weight = 0.5
-    self.unread = true
     self.created_at_str = Time.now.strftime('%c')
   }
 
-  property :weight, type: Float
+  property :weight, type: Float, default: 0.5
   property :body
-  property :unread
+  property :unread, type: Boolean, default: true
   property :created_at_str
 
   from_class User

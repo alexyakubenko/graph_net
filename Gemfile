@@ -17,9 +17,8 @@ gem 'unobtrusive_flash'
 gem 'jquery-ui-rails'
 gem 'rails4-autocomplete'
 
-gem 'sorcery'#, path: '~/RubymineProjects/startdatelabs/sorcery'
+gem 'sorcery'
 gem 'simple_form'
-
 gem 'neo4j', '~> 3.0.4'
 
 group :development do

@@ -1,9 +1,7 @@
 class PostedBy
   include Neo4j::ActiveRel
 
-  before_save -> { self.weight = 4.0 }
-
-  property :weight, type: Float
+  property :weight, type: Float, default: 4.0
 
   from_class Post
   to_class User
