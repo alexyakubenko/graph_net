@@ -27,12 +27,12 @@ class RecommendationsController < ApplicationController
 
         next if node.uuid.in? looked_nodes
 
-        unless costs[node.uuid]
+        if costs[node.uuid]
+          costs[node.uuid] += (current_cost + cost) / 2
+        else
           queue << node
-          costs[node.uuid] = 0
+          costs[node.uuid] = current_cost + cost
         end
-
-        costs[node.uuid] += current_cost + cost
       end
 
       queue.sort! { |a, b| costs[b.uuid] <=> costs[a.uuid] }
