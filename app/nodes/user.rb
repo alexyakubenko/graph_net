@@ -98,7 +98,9 @@ class User
         profile_attrs[k] = rels.map { |r| r.end_node.value }
         profile_attrs[k] = profile_attrs[k].first unless Attribute::RELATIONS[k][:multiple]
       else
-        profile_attrs[k] = nil if include_blank
+        if include_blank
+          profile_attrs[k] = Attribute::RELATIONS[k][:multiple] ? [nil] : nil
+        end
       end
     end
 
